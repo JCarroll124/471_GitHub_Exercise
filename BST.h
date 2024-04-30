@@ -32,6 +32,8 @@ private:
   BSTNode<Key,E>* removehelp(BSTNode<Key, E>*, const Key&);
   E* findhelp(BSTNode<Key, E>*, const Key&) const;
   void printhelp(BSTNode<Key, E>*, int) const;
+  void printPreorder(BSTNode<Key, E>*) const;
+  void printPostorder(BSTNode<Key, E>*) const;
   void visit(BSTNode<Key, E>*) const;
 
 public:
@@ -89,10 +91,33 @@ public:
 
   void print() const { // Print the contents of the BST
     if (root == NULL) cout << "The BST is empty.\n";
-    else printhelp(root, 0);
+    else
+    {
+      printhelp(root, 0);
+      printPreorder(root);
+      printPostorder(root);
+    }
   }
   
 };
+
+// Print the tree in preorder
+template <typename Key, typename E>
+void BST<Key, E>::printPreorder(BSTNode<Key, E>* r) const {
+    if (r == NULL) return;
+    visit(r);
+    printPreorder(r->left());
+    printPreorder(r->right());
+}
+
+// Print the tree in postorder
+template <typename Key, typename E>
+void BST<Key, E>::printPostorder(BSTNode<Key, E>* r) const {
+    if (r == NULL) return;
+    printPostorder(r->left());
+    printPostorder(r->right());
+    visit(r);
+}
 
 // Visit -- prints out root
 template <typename Key, typename E>
