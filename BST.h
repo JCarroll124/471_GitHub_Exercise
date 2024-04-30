@@ -31,7 +31,9 @@ private:
   BSTNode<Key,E>* removehelp(BSTNode<Key, E>*, const Key&);
   E* findhelp(BSTNode<Key, E>*, const Key&) const;
   void printhelp(BSTNode<Key, E>*, int) const;
-  void printPreorder(BSTNode<Key, E>*, int) const;
+  void printPreorder(BSTNode<Key, E>*) const;
+  void printPostorder(BSTNode<Key, E>*) const;
+
   void visit(BSTNode<Key, E>*) const;
 
 public:
@@ -92,7 +94,19 @@ public:
     else
     {
       printhelp(root, 0);
+      printPostorder(root);
       printPreorder(root, 0);
+    }
+  }
+};
+
+// Print the tree in postorder
+template <typename Key, typename E>
+void BST<Key, E>::printPostorder(BSTNode<Key, E>* r) const {
+    if (r == NULL) return;
+    printPostorder(r->left());
+    printPostorder(r->right());
+    visit(r);
     }
   }
 };
