@@ -25,13 +25,13 @@ private:
 
   // Private "helper" functions
   void clearhelp(BSTNode<Key, E>*);
-  BSTNode<Key,E>* inserthelp(BSTNode<Key, E>*,
-                              const Key&, const E&);
+  BSTNode<Key,E>* inserthelp(BSTNode<Key, E>*, const Key&, const E&);
   BSTNode<Key,E>* deletemin(BSTNode<Key, E>*);
   BSTNode<Key,E>* getmin(BSTNode<Key, E>*);
   BSTNode<Key,E>* removehelp(BSTNode<Key, E>*, const Key&);
   E* findhelp(BSTNode<Key, E>*, const Key&) const;
   void printhelp(BSTNode<Key, E>*, int) const;
+  void printPreorder(BSTNode<Key, E>*, int) const;
   void visit(BSTNode<Key, E>*) const;
 
 public:
@@ -89,10 +89,22 @@ public:
 
   void print() const { // Print the contents of the BST
     if (root == NULL) cout << "The BST is empty.\n";
-    else printhelp(root, 0);
+    else
+    {
+      printhelp(root, 0);
+      printPreorder(root, 0);
+    }
   }
-  
 };
+
+// Print out the preorder traversal of the tree
+template <typename Key, typename E>
+void BST<Key, E>::printPreorder(BSTNode<Key, E>* r, int level) const {
+    if (r == NULL) return;           // Empty tree
+    visit(r);						  // Print node value
+    printPreorder(r->left(), level+1);   // Do left subtree
+    printPreorder(r->right(), level+1);  // Do right subtree
+}
 
 // Visit -- prints out root
 template <typename Key, typename E>
