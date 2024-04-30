@@ -25,8 +25,7 @@ private:
 
   // Private "helper" functions
   void clearhelp(BSTNode<Key, E>*);
-  BSTNode<Key,E>* inserthelp(BSTNode<Key, E>*,
-                              const Key&, const E&);
+  BSTNode<Key,E>* inserthelp(BSTNode<Key, E>*, const Key&, const E&);
   BSTNode<Key,E>* deletemin(BSTNode<Key, E>*);
   BSTNode<Key,E>* getmin(BSTNode<Key, E>*);
   BSTNode<Key,E>* removehelp(BSTNode<Key, E>*, const Key&);
@@ -34,6 +33,7 @@ private:
   void printhelp(BSTNode<Key, E>*, int) const;
   void printPreorder(BSTNode<Key, E>*) const;
   void printPostorder(BSTNode<Key, E>*) const;
+
   void visit(BSTNode<Key, E>*) const;
 
 public:
@@ -95,6 +95,7 @@ public:
     {
       printhelp(root, 0);
       printPostorder(root);
+      printPreorder(root, 0);
     }
   }
 };
@@ -106,6 +107,17 @@ void BST<Key, E>::printPostorder(BSTNode<Key, E>* r) const {
     printPostorder(r->left());
     printPostorder(r->right());
     visit(r);
+    }
+  }
+};
+
+// Print out the preorder traversal of the tree
+template <typename Key, typename E>
+void BST<Key, E>::printPreorder(BSTNode<Key, E>* r, int level) const {
+    if (r == NULL) return;           // Empty tree
+    visit(r);						  // Print node value
+    printPreorder(r->left(), level+1);   // Do left subtree
+    printPreorder(r->right(), level+1);  // Do right subtree
 }
 
 // Visit -- prints out root
