@@ -94,21 +94,10 @@ public:
     else
     {
       printhelp(root, 0);
-      printPreorder(root);
       printPostorder(root);
     }
   }
-  
 };
-
-// Print the tree in preorder
-template <typename Key, typename E>
-void BST<Key, E>::printPreorder(BSTNode<Key, E>* r) const {
-    if (r == NULL) return;
-    visit(r);
-    printPreorder(r->left());
-    printPreorder(r->right());
-}
 
 // Print the tree in postorder
 template <typename Key, typename E>
